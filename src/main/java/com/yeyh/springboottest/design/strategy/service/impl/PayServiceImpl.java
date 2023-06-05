@@ -4,7 +4,6 @@ import com.yeyh.springboottest.design.strategy.annotation.PayStrategy;
 import com.yeyh.springboottest.design.strategy.enums.PayHandlerType;
 import com.yeyh.springboottest.design.strategy.handler.PayHandler;
 import com.yeyh.springboottest.design.strategy.service.PayService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -30,9 +29,8 @@ public class PayServiceImpl implements PayService {
 
     @PostConstruct
     private void init() {
-        payHandlerMap = payHandlers.stream().collect(Collectors.toMap(
-                // 获取策略标识
-                item -> item.getClass().getAnnotation(PayStrategy.class).value(), item -> item));
+        // 获取策略标识
+        payHandlerMap = payHandlers.stream().collect(Collectors.toMap(item -> item.getClass().getAnnotation(PayStrategy.class).value(), item -> item));
     }
 
     @Override
